@@ -140,11 +140,10 @@ public class DiaryListDAO implements DAO {
 	public List<DiaryVO> selectContent(String content) {
 		List<DiaryVO> searchlist = new ArrayList<>();
 		// to do : 내용으로 검색
-		DiaryVO vo = null;
 		int size = list.size();
 		for (int idx = 0; idx < size; idx++) {
-			if (list.get(idx).getWdate().equals(content)) {
-				vo = list.get(idx);
+			if (list.get(idx).getContents().contains(content)) {
+				searchlist.add(list.get(idx));
 				break;
 			}
 		}
