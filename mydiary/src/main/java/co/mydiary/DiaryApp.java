@@ -11,6 +11,7 @@ public class DiaryApp {
 
 		// 저장된 내용 읽어서 리스트에 담기
 		dao = new DiaryListDAO();
+		//dao = new DiaryOracleDAO();
 
 		int menunum;
 
@@ -108,21 +109,24 @@ public class DiaryApp {
 	// 수정
 	public void update() {
 		// to do : 수정
-		System.out.println("날짜검색");
-		String wdate = StdInputUtil.readDate();
-		DiaryVO vo = dao.selectDate(wdate);
+		String wdate = "";
+		String contents = "";
+		// 입력
+		System.out.println("날짜:");
+		wdate = StdInputUtil.readDate();
 
 		System.out.println("내용:");
-		String contents = StdInputUtil.readMultiLine();
+		contents = StdInputUtil.readMultiLine();
 
 		// vo 담기
-		vo = new DiaryVO();
+		DiaryVO vo = new DiaryVO();
 		vo.setWdate(wdate);
 		vo.setContents(contents);
 
 		// 리스트에 저장
 		dao.update(vo);
 		System.out.println(vo);
+		System.out.println("수정완료");
 	}
 
 
@@ -130,10 +134,11 @@ public class DiaryApp {
 	public void delete() {
 		// to do : 삭제
 		// 날짜 입력
-
+		System.out.println("날짜:");
+		String  wdate = StdInputUtil.readDate();
 		// 리스트에서 삭제
-
-		System.out.println("삭제");
+		dao.delete(wdate);
+		System.out.println("삭제완료");
 	}
 
 	// 날짜검색
@@ -147,7 +152,7 @@ public class DiaryApp {
 	// 내용검색
 	public void selectContent() {
 		System.out.println("내용검색");
-		String contents = StdInputUtil.readMultiLine();
+		String contents = StdInputUtil.readLine();
 		List<DiaryVO> list = dao.selectContent(contents);
 		list.stream().forEach(this::print);
 	}
